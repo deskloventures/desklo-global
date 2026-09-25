@@ -177,7 +177,7 @@ export default function Header() {
       <div
         className={`w-full transition-all duration-500 ease-in-out ${
           scrolled
-            ? "bg-white/80 dark:bg-neutral-950/90 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            ? "bg-white dark:bg-neutral-950 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
             : "bg-white dark:bg-neutral-950 border-b border-neutral-200/50 dark:border-neutral-800"
         }`}
       >

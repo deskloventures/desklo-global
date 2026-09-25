@@ -15,6 +15,7 @@ import {
   MousePointer2,
   ArrowUpRight
 } from "lucide-react";
+import TypewriterEffect from "@/components/ui/TypewriterEffect";
 
 // --- DATA --- //
 const stats = [
@@ -24,6 +25,7 @@ const stats = [
   { label: "Unicorns Scaled", value: "12+" },
 ];
 
+const typewriterWords = ["Clinics", "Agencies", "Real Estates", "Healthcare Brands", "Ecommerce"];
 const faqs = [
   {
     question: "Do you work with early-stage startups or only established unicorns?",
@@ -61,7 +63,6 @@ export default function Home() {
   
   // Parallax scroll effect for Hero
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
@@ -75,7 +76,7 @@ export default function Home() {
         {/* Soft Accent Glows */}
         <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-[#00c2b2]/5 blur-[100px] pointer-events-none"></div>
 
-        <motion.div style={{ y, opacity }} className="max-w-5xl mx-auto flex flex-col items-center">
+        <motion.div style={{ opacity }} className="max-w-5xl mx-auto flex flex-col items-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: customEase }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-neutral-200 shadow-sm text-sm font-semibold text-neutral-600 mb-8"
@@ -91,10 +92,15 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: customEase }}
             className="text-6xl md:text-8xl font-extrabold tracking-tighter text-neutral-950 leading-[1.05]"
           >
-            We engineer revenue for <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#009b8e] to-[#00c2b2] inline-block pb-2">
-              high-growth unicorns.
-            </span>
+            We engineer upto 8x ROAS ads for <br className="hidden md:block" />
+            <TypewriterEffect
+              words={typewriterWords}
+              typingSpeed={95}
+              deletingSpeed={55}
+              pauseDuration={1400}
+              className="inline-block min-w-[17ch] pb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#009b8e] to-[#00c2b2]"
+            />
+            
           </motion.h1>
           
           <motion.p 

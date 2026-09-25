@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       {/* 
         The <head> tag is automatically managed by Next.js Metadata, 
         but everything visible must go inside the <body> 
@@ -30,7 +30,7 @@ export default function RootLayout({
         {/* CORRECT: Header is inside the body */}
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >
