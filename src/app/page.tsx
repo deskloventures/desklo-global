@@ -108,7 +108,7 @@ export default function Home() {
               typingSpeed={95}
               deletingSpeed={55}
               pauseDuration={1400}
-              className="inline-block min-w-[17ch] pb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#009b8e] to-[#00c2b2]"
+              className="inline-block min-w-[17ch] pb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-[#00c2b2] to-[#00c2b2]"
             />
             
           </motion.h1>
@@ -247,10 +247,14 @@ export default function Home() {
           </motion.div>
           
           <div className="grid md:grid-cols-3 gap-12 relative">
-            <div className="hidden md:block absolute top-10 left-[15%] right-[15%] h-[2px] bg-neutral-100 -z-10">
+            <div className="pointer-events-none absolute left-1/2 top-10 bottom-10 z-0 w-px -translate-x-1/2 bg-[#00c2b2]/20 md:left-[16.67%] md:right-[16.67%] md:top-10 md:bottom-auto md:h-px md:w-auto md:translate-x-0">
               <motion.div 
-                initial={{ width: 0 }} whileInView={{ width: "100%" }} transition={{ duration: 1.5, ease: customEase }} viewport={{ once: true }}
-                className="h-full bg-gradient-to-r from-[#00c2b2] to-transparent"
+                initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} transition={{ duration: 1.2, ease: customEase }} viewport={{ once: true }}
+                className="h-full w-full origin-top bg-gradient-to-b from-[#00c2b2]/60 via-[#00c2b2] to-[#00c2b2]/60 md:hidden"
+              />
+              <motion.div 
+                initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} transition={{ duration: 1.4, ease: customEase }} viewport={{ once: true }}
+                className="hidden h-full w-full origin-left bg-gradient-to-r from-[#00c2b2]/60 via-[#00c2b2] to-[#00c2b2]/60 md:block"
               />
             </div>
             
@@ -259,7 +263,7 @@ export default function Home() {
               { s: "02", t: "Rapid Testing", d: "Deploy high-velocity creative tests to find the lowest CPA winning combinations." },
               { s: "03", t: "Scale & Dominate", d: "Pour budget into winning campaigns while aggressively defending ROAS." }
             ].map((item, i) => (
-              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp} transition={{ delay: i * 0.15 }} className="flex flex-col items-center group">
+              <motion.div key={i} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp} transition={{ delay: i * 0.15 }} className="relative z-10 flex flex-col items-center group">
                 <div className="h-20 w-20 rounded-2xl bg-white shadow-sm border border-neutral-200 flex items-center justify-center text-xl font-bold text-neutral-900 mb-8 group-hover:border-[#00c2b2] group-hover:text-[#009b8e] transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-md">
                   {item.s}
                 </div>
