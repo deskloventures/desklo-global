@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
-  Menu, X, ChevronDown, ArrowRight, Building2, Zap, 
-  LayoutDashboard, Globe, TrendingUp, Info, Phone, User 
+  Menu, X, ChevronDown, ArrowRight, Building2, Zap,
+  LayoutDashboard, Globe, TrendingUp, Info, Phone, User, Sun, Moon
 } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const navigation = [
   {
@@ -45,11 +46,21 @@ const navigation = [
   },
   { name: "Case Studies", href: "/case-study" },
   { name: "Insights", href: "/insights" },
+  //{
+  //   name: "Tools",
+  //   href: "#",
+  //   dropdown: [
+  //     { name: "Real Estate", href: "/real-estate", icon: Building2 },
+  //     { name: "Hospitals & Clinics", href: "/hospitals-clinics", icon: Globe },
+  //     { name: "Car Detailing", href: "/car-detailing", icon: Zap },
+  //     { name: "Water Parks", href: "/water-parks", icon: LayoutDashboard },
+  //   ],
+  // },
   {
     name: "Company",
     href: "#",
     dropdown: [
-      { name: "About Us", href: "/about" },
+      { name: "About Us", href: "/about-us" },
       { name: "Life at Desklo", href: "/life-at-desklo" },
       { name: "Careers", href: "/careers" },
     ],
@@ -60,6 +71,24 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [revenue, setRevenue] = useState(10085350000);
+  const mounted = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
+  const { resolvedTheme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    const root = document.documentElement;
+    root.classList.add("theme-switching");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        root.classList.remove("theme-switching");
+      });
+    });
+  };
 
   // Scroll effect for header transformation
   useEffect(() => {
@@ -98,7 +127,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-col w-full">
       {/* Top Bar (Full Width) */}
       <div 
-        className={`hidden lg:flex w-full bg-neutral-50 border-b border-neutral-200/60 transition-all duration-500 ease-in-out origin-top ${
+        className={`hidden lg:flex w-full bg-neutral-50 dark:bg-neutral-950 border-b border-neutral-200/60 dark:border-neutral-800 transition-all duration-500 ease-in-out origin-top ${
           scrolled ? "h-0 opacity-0 overflow-hidden" : "h-12 opacity-100"
         }`}
       >
@@ -148,8 +177,8 @@ export default function Header() {
       <div
         className={`w-full transition-all duration-500 ease-in-out ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl border-b border-neutral-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-            : "bg-white border-b border-neutral-200/50"
+            ? "bg-white/80 dark:bg-neutral-950/90 backdrop-blur-xl border-b border-neutral-200/50 dark:border-neutral-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            : "bg-white dark:bg-neutral-950 border-b border-neutral-200/50 dark:border-neutral-800"
         }`}
       >
         <nav 
@@ -184,7 +213,7 @@ export default function Header() {
               <div key={item.name} className="relative group h-full flex items-center">
                 <Link
                   href={item.href}
-                  className="flex items-center gap-x-1.5 text-[15px] font-semibold tracking-tight text-neutral-700 hover:text-[#00c2b2] transition-colors py-2"
+                  className="flex items-center gap-x-1.5 text-[15px] font-semibold tracking-tight text-neutral-700 dark:text-white hover:text-[#00c2b2] transition-colors py-2"
                 >
                   {item.name}
                   {(item.megaMenu || item.dropdown) && (
@@ -195,7 +224,7 @@ export default function Header() {
                 {/* Mega Menu Dropdown */}
                 {item.megaMenu && (
                   <div className="absolute top-[85px] left-1/2 -translate-x-1/2 w-max max-w-3xl opacity-0 translate-y-4 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out z-50">
-                    <div className="relative overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgb(0,0,0,0.1)] ring-1 ring-neutral-200/60 p-8">
+                    <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-[0_20px_60px_rgb(0,0,0,0.1)] ring-1 ring-neutral-200/60 dark:ring-neutral-700 p-8">
                       <div className="grid grid-cols-2 gap-x-12 gap-y-8 w-[650px]">
                         {item.items?.map((subItem) => (
                           <Link
@@ -203,11 +232,11 @@ export default function Header() {
                             href={subItem.href}
                             className="group/item flex flex-col gap-1.5 rounded-xl p-3 -m-3 transition-all hover:bg-neutral-50"
                           >
-                            <span className="text-[15px] font-bold text-neutral-900 flex items-center gap-2">
+                            <span className="text-[15px] font-bold text-neutral-900 dark:text-white flex items-center gap-2">
                               {subItem.name}
                               <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-2 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 text-[#00c2b2]" />
                             </span>
-                            <span className="text-sm text-neutral-500 leading-relaxed font-medium">
+                            <span className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed font-medium">
                               {subItem.desc}
                             </span>
                           </Link>
@@ -220,7 +249,7 @@ export default function Header() {
                 {/* Standard Dropdown */}
                 {item.dropdown && (
                   <div className="absolute top-[85px] left-1/2 -translate-x-1/2 w-64 opacity-0 translate-y-4 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out z-50">
-                    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgb(0,0,0,0.1)] ring-1 ring-neutral-200/60 p-3">
+                    <div className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-[0_20px_60px_rgb(0,0,0,0.1)] ring-1 ring-neutral-200/60 dark:ring-neutral-700 p-3">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}
@@ -240,6 +269,21 @@ export default function Header() {
 
           {/* Right Side Controls (CTA & Hamburger) - Always Visible */}
           <div className="flex items-center z-20 gap-3 lg:gap-4">
+
+            {/* Theme Toggle */}
+            <button
+              type="button"
+              aria-label={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              onClick={toggleTheme}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 transition-colors hover:border-[#00c2b2] hover:text-[#00c2b2] dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200"
+            >
+              {mounted && resolvedTheme === "dark" ? (
+                <Sun className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <Moon className="h-4 w-4" aria-hidden="true" />
+              )}
+            </button>
             
             {/* Desktop Full CTA Button */}
             <Link
@@ -294,7 +338,7 @@ export default function Header() {
         
         {/* Menu Panel */}
         <div
-          className={`fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white px-6 py-6 shadow-2xl transition-transform duration-500 ease-[0.32,0.72,0,1] ${
+            className={`fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white dark:bg-neutral-950 px-6 py-6 shadow-2xl transition-transform duration-500 ease-[0.32,0.72,0,1] ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >

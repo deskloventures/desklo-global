@@ -5,6 +5,7 @@ import "./globals.css";
 // Import your layout components
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,13 +28,20 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased selection:bg-[#00c2b2] selection:text-white`}>
         
         {/* CORRECT: Header is inside the body */}
-        <Header />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <Header />
         
         {/* Page content (<main> tags from page.tsx files) will render here */}
-        {children}
+          {children}
         
         {/* CORRECT: Footer is inside the body */}
-        <Footer />
+          <Footer />
+        </ThemeProvider>
         
       </body>
     </html>

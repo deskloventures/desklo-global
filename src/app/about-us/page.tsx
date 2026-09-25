@@ -2,6 +2,8 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+
+
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { 
   ArrowRight, 
@@ -80,8 +82,9 @@ export default function AboutPage() {
 
   return (
     <main className="flex min-h-screen flex-col bg-[#FAFAFA] text-neutral-900 overflow-hidden pt-24 selection:bg-[#00c2b2] selection:text-white">
-      
-      {/* 1. PARALLAX HERO / MANIFESTO */}
+     
+          {/* 1. PARALLAX HERO / MANIFESTO */}
+
       <section ref={heroRef} className="relative px-6 py-32 md:py-48 max-w-7xl mx-auto w-full z-10 min-h-[90vh] flex items-center">
         {/* Background Gradients */}
         <div className="absolute top-0 right-1/4 w-[50vw] h-[50vw] rounded-full bg-[#00c2b2]/5 blur-[120px] pointer-events-none -z-10"></div>
