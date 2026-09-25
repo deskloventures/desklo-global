@@ -77,6 +77,9 @@ export default function Header() {
     () => false,
   );
   const { resolvedTheme, setTheme } = useTheme();
+  const logoSrc = mounted && resolvedTheme === "dark"
+    ? "/Desklo-small-light.webp"
+    : "/desklo-dark.webp";
 
   const toggleTheme = () => {
     const root = document.documentElement;
@@ -193,7 +196,7 @@ export default function Header() {
             <Link href="/" className="p-1.5 transition-transform hover:opacity-80">
               <span className="sr-only">Desklo Global</span>
               <Image
-                src="/desklo-dark.webp"
+                src={logoSrc}
                 alt="Desklo Global"
                 width={150}
                 height={42}
@@ -346,7 +349,7 @@ export default function Header() {
             <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
               <span className="sr-only">Desklo Global</span>
               <Image
-                src="/desklo-dark.webp"
+                src={logoSrc}
                 alt="Desklo Global"
                 width={130}
                 height={36}

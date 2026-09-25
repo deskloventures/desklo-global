@@ -57,6 +57,16 @@ const staggerContainer = {
   }
 };
 
+const capabilityCard = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: customEase }
+  }
+};
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const heroRef = useRef(null);
@@ -174,19 +184,7 @@ export default function Home() {
           </div>
           
           <motion.div variants={fadeUp} className="relative h-[500px] w-full rounded-[2rem] bg-white border border-neutral-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden flex items-center justify-center group">
-            {/* Abstract Light Mode UI representation */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-neutral-50 to-white"></div>
-            <BarChart3 className="h-32 w-32 text-neutral-200 group-hover:scale-105 transition-transform duration-700 ease-out" />
-            
-            {/* Floating micro-interaction card */}
-            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-neutral-100 shadow-lg flex items-center justify-between group-hover:-translate-y-2 transition-transform duration-500">
-               <span className="font-mono text-sm font-semibold text-[#009b8e]">system_status: optimal</span>
-               <div className="flex gap-1.5 h-4 items-end">
-                  <div className="w-1.5 bg-[#00c2b2] rounded-t-sm animate-[pulse_1s_ease-in-out_infinite] h-full"></div>
-                  <div className="w-1.5 bg-[#00c2b2] rounded-t-sm animate-[pulse_1.2s_ease-in-out_infinite] h-3/4"></div>
-                  <div className="w-1.5 bg-[#00c2b2] rounded-t-sm animate-[pulse_0.8s_ease-in-out_infinite] h-1/2"></div>
-               </div>
-            </div>
+            <div className="absolute inset-0 bg-[url('/burning_capital.jpg')] bg-cover bg-center"></div>
           </motion.div>
         </motion.div>
       </section>
@@ -207,14 +205,16 @@ export default function Home() {
               { t: "Creative Engineering", d: "Data-backed visual assets designed specifically to interrupt patterns and convert cold traffic into buyers.", i: MousePointer2, span: "md:col-span-2" },
             ].map((service, i) => (
               <motion.div 
-                key={i} variants={fadeUp} 
-                className={`group p-8 rounded-[2rem] bg-[#FAFAFA] border border-neutral-200 hover:bg-white hover:shadow-[0_8px_40px_-12px_rgba(0,194,178,0.15)] transition-all duration-500 cursor-default ${service.span}`}
+                key={i}
+                variants={capabilityCard}
+                className={`group relative isolate overflow-hidden p-8 rounded-[2rem] bg-[#FAFAFA] border border-neutral-200 transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#00c2b2]/40 hover:bg-white hover:shadow-[0_18px_45px_-16px_rgba(0,194,178,0.35)] cursor-default ${service.span}`}
               >
-                <div className="h-14 w-14 rounded-2xl bg-white border border-neutral-100 shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 ease-out">
-                  <service.i className="h-6 w-6 text-neutral-700 group-hover:text-[#00c2b2] transition-colors" />
+                <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-[#00c2b2]/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                <div className="relative z-10 h-14 w-14 rounded-2xl bg-white border border-neutral-100 shadow-sm flex items-center justify-center mb-6 transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:rotate-6 group-hover:border-[#00c2b2]/30 group-hover:shadow-md">
+                  <service.i className="h-6 w-6 text-neutral-700 transition-colors duration-300 group-hover:text-[#00c2b2]" />
                 </div>
-                <h3 className="text-2xl font-bold text-neutral-950 mb-3">{service.t}</h3>
-                <p className="text-neutral-500 leading-relaxed font-medium">{service.d}</p>
+                <h3 className="relative z-10 text-2xl font-bold text-neutral-950 mb-3 transition-transform duration-500 group-hover:translate-x-1">{service.t}</h3>
+                <p className="relative z-10 text-neutral-500 leading-relaxed font-medium">{service.d}</p>
               </motion.div>
             ))}
           </motion.div>
